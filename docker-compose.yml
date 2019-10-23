@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  yapi-web:
+    image: jayfong/yapi:latest
+    container_name: yapi-web
+    ports:
+      - 3000:3000
+    volumes:
+      - ./config.js:/yapi/config.js
+    depends_on:
+      - yapi-mongo
+    restart: unless-stopped
+  yapi-mongo:
+    image: mongo:4.0.5
+    container_name: yapi-mongo
+    volumes:
+      - ./mongo/data:/data/db
+    ports:
+      - 27017:27017      
+    restart: unless-stopped
